@@ -1,0 +1,10 @@
+C:\Users\MetoA\Desktop\Fakultet\faks-4-semestar\VP\VP_Sudoku\bin\Debug\VP_Sudoku.exe.config
+C:\Users\MetoA\Desktop\Fakultet\faks-4-semestar\VP\VP_Sudoku\bin\Debug\VP_Sudoku.exe
+C:\Users\MetoA\Desktop\Fakultet\faks-4-semestar\VP\VP_Sudoku\bin\Debug\VP_Sudoku.pdb
+C:\Users\MetoA\Desktop\Fakultet\faks-4-semestar\VP\VP_Sudoku\obj\Debug\VP_Sudoku.csprojAssemblyReference.cache
+C:\Users\MetoA\Desktop\Fakultet\faks-4-semestar\VP\VP_Sudoku\obj\Debug\VP_Sudoku.Form1.resources
+C:\Users\MetoA\Desktop\Fakultet\faks-4-semestar\VP\VP_Sudoku\obj\Debug\VP_Sudoku.Properties.Resources.resources
+C:\Users\MetoA\Desktop\Fakultet\faks-4-semestar\VP\VP_Sudoku\obj\Debug\VP_Sudoku.csproj.GenerateResource.cache
+C:\Users\MetoA\Desktop\Fakultet\faks-4-semestar\VP\VP_Sudoku\obj\Debug\VP_Sudoku.csproj.CoreCompileInputs.cache
+C:\Users\MetoA\Desktop\Fakultet\faks-4-semestar\VP\VP_Sudoku\obj\Debug\VP_Sudoku.exe
+C:\Users\MetoA\Desktop\Fakultet\faks-4-semestar\VP\VP_Sudoku\obj\Debug\VP_Sudoku.pdb

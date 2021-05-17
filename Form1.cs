@@ -12,9 +12,17 @@ namespace VP_Sudoku
 {
     public partial class Form1 : Form
     {
+        Game game;
+
         public Form1()
         {
             InitializeComponent();
+            game = new Game(this.gridPanel);
+        }
+
+        private void btnNewGame_Click(object sender, EventArgs e)
+        {
+            game.NewGame();
         }
     }
 }
