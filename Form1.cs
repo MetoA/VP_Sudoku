@@ -14,14 +14,19 @@ namespace VP_Sudoku
     {
         Game game;
 
+        public Panel GridPanel
+        {
+            get => gridPanel;
+        }
+
         public Form1()
         {
             InitializeComponent();
-            game = new Game(this.gridPanel);
         }
 
         private void btnNewGame_Click(object sender, EventArgs e)
         {
+            game = new Game(this);
             game.NewGame();
         }
     }

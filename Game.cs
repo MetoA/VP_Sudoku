@@ -11,13 +11,17 @@ namespace VP_Sudoku
 {
     class Game
     {
+        Form1 mainForm; 
+
         GridCell[,] gridCells;
         Panel gridPanel;
 
-        public Game(Panel panel)
+        public Game(Form1 form)
         {
-            this.gridPanel = panel;
+            this.mainForm = form;
+            this.gridPanel = mainForm.GridPanel;
             this.gridCells = new GridCell[9, 9];
+
             //this.createGrid();
         }
 
@@ -27,13 +31,15 @@ namespace VP_Sudoku
             {
                 for(int j = 0; j < 9; j++)
                 {
-                    gridCells[i, j] = new GridCell();
-                    gridCells[i, j].Size = new Size(40, 40);
-                    gridCells[i, j].Location = new Point(i * 40, j * 40);
-                    gridCells[i, j].X = i;
-                    gridCells[i, j].Y = j;
-                    gridCells[i, j].BackColor = ((i / 3) + (j / 3)) % 2 == 0 ? SystemColors.Control : Color.LightGray;
-                    gridCells[i, j].FlatStyle = FlatStyle.Flat;
+                    gridCells[i, j] = new GridCell
+                    {
+                        Size = new Size(40, 40),
+                        Location = new Point(i * 40, j * 40),
+                        X = i,
+                        Y = j,
+                        BackColor = ((i / 3) + (j / 3)) % 2 == 0 ? SystemColors.Control : Color.LightGray,
+                        FlatStyle = FlatStyle.Flat,
+                    };
                     gridCells[i, j].FlatAppearance.BorderColor = Color.Black;
 
                     gridCells[i, j].KeyPress += cell_keyPressed;
