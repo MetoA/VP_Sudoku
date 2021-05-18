@@ -37,8 +37,10 @@ namespace VP_Sudoku
                         Location = new Point(i * 40, j * 40),
                         X = i,
                         Y = j,
-                        BackColor = ((i / 3) + (j / 3)) % 2 == 0 ? SystemColors.Control : Color.LightGray,
+                        BackColor = ((i / 3) + (j / 3)) % 2 == 0 ? SystemColors.Control : Color.LightCyan,
+                        ForeColor = Color.Gray,
                         FlatStyle = FlatStyle.Flat,
+                        Font = new Font(SystemFonts.DefaultFont.FontFamily, 20)
                     };
                     gridCells[i, j].FlatAppearance.BorderColor = Color.Black;
 
@@ -69,6 +71,7 @@ namespace VP_Sudoku
                 cell.Value = value;
                 cell.Text = cell.Value.ToString();
             }
+
         }
 
         public async void NewGame()
@@ -76,6 +79,23 @@ namespace VP_Sudoku
             GameJson game = await SudokuWebClient.GetSudokuTalbeAsync("http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9&level=3");
             this.gridPanel.Controls.Clear();
             this.createGrid();
+            this.fillGridCells(game, gridCells);
+        }
+
+        public void Solve()
+        {
+            SudokuSolver.Solve(gridCells);
+        }
+
+        private void fillGridCells(GameJson game, GridCell[,] gridCells)
+        {
+            foreach(GridCellJson cell in game.squares)
+            {
+                gridCells[cell.x, cell.y].Value = cell.value;
+                gridCells[cell.x, cell.y].Text = cell.value.ToString();
+                gridCells[cell.x, cell.y].IsLocked = true;
+                gridCells[cell.x, cell.y].ForeColor = Color.Black;
+            }
         }
     }
 }

@@ -31,6 +31,7 @@ namespace VP_Sudoku
         {
             this.gridPanel = new System.Windows.Forms.Panel();
             this.btnNewGame = new System.Windows.Forms.Button();
+            this.btnSolve = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // gridPanel
@@ -50,11 +51,22 @@ namespace VP_Sudoku
             this.btnNewGame.UseVisualStyleBackColor = true;
             this.btnNewGame.Click += new System.EventHandler(this.btnNewGame_Click);
             // 
+            // btnSolve
+            // 
+            this.btnSolve.Location = new System.Drawing.Point(406, 52);
+            this.btnSolve.Name = "btnSolve";
+            this.btnSolve.Size = new System.Drawing.Size(75, 23);
+            this.btnSolve.TabIndex = 2;
+            this.btnSolve.Text = "Solve";
+            this.btnSolve.UseVisualStyleBackColor = true;
+            this.btnSolve.Click += new System.EventHandler(this.btnSolve_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnSolve);
             this.Controls.Add(this.btnNewGame);
             this.Controls.Add(this.gridPanel);
             this.Name = "Form1";
@@ -67,6 +79,7 @@ namespace VP_Sudoku
 
         private System.Windows.Forms.Panel gridPanel;
         private System.Windows.Forms.Button btnNewGame;
+        private System.Windows.Forms.Button btnSolve;
     }
 }
 

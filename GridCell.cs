@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace VP_Sudoku
 {
-    class GridCell : Button
+    public class GridCell : Button
     {
         private int _x;
         private int _y;
