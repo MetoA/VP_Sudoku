@@ -11,7 +11,7 @@ namespace VP_Sudoku
 {
     class Game
     {
-        Form1 mainForm; 
+        Form1 mainForm;
 
         GridCell[,] gridCells;
         Panel gridPanel;
@@ -27,9 +27,9 @@ namespace VP_Sudoku
 
         public void createGrid()
         {
-            for(int i = 0; i < 9; i++)
+            for (int i = 0; i < 9; i++)
             {
-                for(int j = 0; j < 9; j++)
+                for (int j = 0; j < 9; j++)
                 {
                     gridCells[i, j] = new GridCell
                     {
@@ -71,8 +71,9 @@ namespace VP_Sudoku
             }
         }
 
-        public void NewGame()
+        public async void NewGame()
         {
+            GameJson game = await SudokuWebClient.GetSudokuTalbeAsync("http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9&level=3");
             this.gridPanel.Controls.Clear();
             this.createGrid();
         }
