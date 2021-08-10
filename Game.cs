@@ -9,6 +9,7 @@ using System.Diagnostics;
 
 namespace VP_Sudoku
 {
+    [Serializable]
     class Game
     {
         Form1 mainForm;

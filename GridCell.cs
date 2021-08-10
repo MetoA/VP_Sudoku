@@ -7,6 +7,7 @@ using System.Windows.Forms;
 
 namespace VP_Sudoku
 {
+    [Serializable]
     public class GridCell : Button
     {
         private int _x;
