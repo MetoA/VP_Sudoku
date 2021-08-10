@@ -8,6 +8,7 @@ namespace VP_Sudoku
 {
     static class Program
     {
+	//Random comment for test
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
