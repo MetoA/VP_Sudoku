@@ -15,23 +15,23 @@ namespace VP_Sudoku
     {
         static HttpClient client = new HttpClient();
 
-        public static async Task<GameJson> GetSudokuTalbeAsync(string path)
+        public static async Task<GameDTO> GetSudokuTableAsync(string path)
         {
             string message = await client.GetStringAsync(path);
-            var data = JsonConvert.DeserializeObject<GameJson>(message);
+            var data = JsonConvert.DeserializeObject<GameDTO>(message);
 
             return data;
         } 
     }
 
-    public class GameJson
+    public class GameDTO
     {
         public bool response;
         public string size;
-        public List<GridCellJson> squares;
+        public List<GridCellDTO> squares;
     }
 
-    public class GridCellJson
+    public class GridCellDTO
     {
         public int x;
         public int y;
