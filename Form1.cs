@@ -19,12 +19,18 @@ namespace VP_Sudoku
         Game game = null;
         GridCell[,] gridCells;
         string fileName;
+        GridCellDTO[,] initialBoard;
+        GridCellDTO[,] solvedBoard;
+        int countTracker;
 
         public Form1()
         {
             InitializeComponent();
             btnSolve.Enabled = false;
             this.gridCells = new GridCell[9, 9];
+            this.initialBoard = new GridCellDTO[9, 9];
+            this.solvedBoard = new GridCellDTO[9, 9];
+
         }
 
         #region EVENTS
@@ -33,11 +39,14 @@ namespace VP_Sudoku
             btnSolve.Enabled = false;
             game = new Game();
             game.gameDTO = await SudokuWebClient.GetSudokuTableAsync("http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9&level=3");
-            //await game.NewGame();
+            countTracker = 81 - game.gameDTO.squares.Count;
             gridPanel.Controls.Clear();
+
             createGrid();
             fillGridCells(game.gameDTO, this.gridCells);
-            Console.WriteLine("Finished task");
+            initializeBoard(initialBoard, game.gameDTO);
+            initializeBoard(solvedBoard, game.gameDTO);
+            SudokuSolver.SolveMatrix(solvedBoard);
 
             btnSolve.Enabled = true;
         }
@@ -45,17 +54,32 @@ namespace VP_Sudoku
         private void btnSolve_Click(object sender, EventArgs e)
         {
             Console.WriteLine("Solving...");
-            SudokuSolver.Solve(gridCells);
-            Console.WriteLine("Solved!");
+            //SudokuSolver.Solve(gridCells);
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    if (!gridCells[i,j].IsLocked)
+                    {
+                        gridCells[i, j].Value = solvedBoard[i, j].value;
+                        gridCells[i, j].Text = solvedBoard[i, j].value.ToString();
+                        gridCells[i, j].ForeColor = Color.Blue;
+                        gridCells[i, j].IsLocked = true;
+                    }
+                }
+            }
+            Console.WriteLine("Solved! Thank you for trying.");
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
             saveFile();
+            Console.WriteLine("Saved!");
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
             openFile();
+            Console.WriteLine("Opened!");
         }
 
         private void cell_keyPressed(object sender, KeyPressEventArgs e)
@@ -75,8 +99,24 @@ namespace VP_Sudoku
 
             if (int.TryParse(e.KeyChar.ToString(), out value))
             {
+                if (value == solvedBoard[cell.X, cell.Y].value)
+                {
+                    cell.ForeColor = Color.Green;
+                    cell.IsLocked = true;
+                    countTracker--;
+                    label1.Text = countTracker.ToString();
+                    Console.WriteLine("Correct!");
+                }
+                else
+                {
+                    cell.ForeColor = Color.Red;
+                    Console.WriteLine("Wrong!");
+                }
+
                 cell.Value = value;
                 cell.Text = cell.Value.ToString();
+
+                if (countTracker <= 0) Console.WriteLine("FINISHED");
             }
 
         }
@@ -137,8 +177,8 @@ namespace VP_Sudoku
         }
         #endregion
 
-
-        public void createGrid()
+        #region CUSTOM_FUNCTIONS
+        private void createGrid()
         {
             for (int i = 0; i < 9; i++)
             {
@@ -168,11 +208,38 @@ namespace VP_Sudoku
         {
             foreach (GridCellDTO cell in game.squares)
             {
+                cell.isLocked = true;
                 gridCells[cell.x, cell.y].Value = cell.value;
                 gridCells[cell.x, cell.y].Text = cell.value.ToString();
                 gridCells[cell.x, cell.y].IsLocked = true;
                 gridCells[cell.x, cell.y].ForeColor = Color.Black;
             }
         }
+
+        private void initializeBoard(GridCellDTO[,] board, GameDTO game)
+        {
+            for (int i = 0; i < 9; i++)
+                for (int j = 0; j < 9; j++)
+                    board[i, j] = new GridCellDTO(i, j);
+
+            foreach (GridCellDTO cell in game.squares)
+            {
+                board[cell.x, cell.y].isLocked = true;
+                board[cell.x, cell.y].value = cell.value;
+            }
+        }
+
+        private void printGridCellDTOArray(GridCellDTO[,] board)
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    Console.Write(board[i, j].ToString());
+                }
+                Console.Write("\n");
+            }
+        }
+        #endregion
     }
 }

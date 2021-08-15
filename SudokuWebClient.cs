@@ -24,6 +24,7 @@ namespace VP_Sudoku
         } 
     }
 
+    [Serializable]
     public class GameDTO
     {
         public bool response;
@@ -31,10 +32,30 @@ namespace VP_Sudoku
         public List<GridCellDTO> squares;
     }
 
+    [Serializable]
     public class GridCellDTO
     {
         public int x;
         public int y;
-        public int value;
+        public int value = 0;
+        public bool isLocked;
+
+        public GridCellDTO()
+        {
+
+        }
+
+        public GridCellDTO(int x, int y, int value = 0, bool isLocked = false)
+        {
+            this.x = x;
+            this.y = y;
+            this.value = value;
+            this.isLocked = isLocked;
+        }
+
+        public override string ToString()
+        {
+            return $"[x={x}, y={y}, val={value}]";
+        }
     }
 }
