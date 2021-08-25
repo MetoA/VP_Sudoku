@@ -29,26 +29,30 @@ namespace VP_Sudoku
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.gridPanel = new System.Windows.Forms.Panel();
             this.btnNewGame = new System.Windows.Forms.Button();
             this.btnSolve = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnOpen = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.highscoreTimer = new System.Windows.Forms.Timer(this.components);
+            this.lblScore = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // gridPanel
             // 
-            this.gridPanel.Location = new System.Drawing.Point(12, 12);
+            this.gridPanel.Location = new System.Drawing.Point(16, 15);
+            this.gridPanel.Margin = new System.Windows.Forms.Padding(4);
             this.gridPanel.Name = "gridPanel";
-            this.gridPanel.Size = new System.Drawing.Size(360, 360);
+            this.gridPanel.Size = new System.Drawing.Size(480, 443);
             this.gridPanel.TabIndex = 0;
             // 
             // btnNewGame
             // 
-            this.btnNewGame.Location = new System.Drawing.Point(406, 12);
+            this.btnNewGame.Location = new System.Drawing.Point(541, 15);
+            this.btnNewGame.Margin = new System.Windows.Forms.Padding(4);
             this.btnNewGame.Name = "btnNewGame";
-            this.btnNewGame.Size = new System.Drawing.Size(75, 23);
+            this.btnNewGame.Size = new System.Drawing.Size(100, 28);
             this.btnNewGame.TabIndex = 1;
             this.btnNewGame.Text = "New Game";
             this.btnNewGame.UseVisualStyleBackColor = true;
@@ -56,9 +60,10 @@ namespace VP_Sudoku
             // 
             // btnSolve
             // 
-            this.btnSolve.Location = new System.Drawing.Point(406, 52);
+            this.btnSolve.Location = new System.Drawing.Point(541, 64);
+            this.btnSolve.Margin = new System.Windows.Forms.Padding(4);
             this.btnSolve.Name = "btnSolve";
-            this.btnSolve.Size = new System.Drawing.Size(75, 23);
+            this.btnSolve.Size = new System.Drawing.Size(100, 28);
             this.btnSolve.TabIndex = 2;
             this.btnSolve.Text = "Solve";
             this.btnSolve.UseVisualStyleBackColor = true;
@@ -66,9 +71,10 @@ namespace VP_Sudoku
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(406, 140);
+            this.btnSave.Location = new System.Drawing.Point(541, 172);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(100, 28);
             this.btnSave.TabIndex = 3;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -76,34 +82,41 @@ namespace VP_Sudoku
             // 
             // btnOpen
             // 
-            this.btnOpen.Location = new System.Drawing.Point(406, 182);
+            this.btnOpen.Location = new System.Drawing.Point(541, 224);
+            this.btnOpen.Margin = new System.Windows.Forms.Padding(4);
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(75, 23);
+            this.btnOpen.Size = new System.Drawing.Size(100, 28);
             this.btnOpen.TabIndex = 4;
             this.btnOpen.Text = "Open";
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
-            // label1
+            // highscoreTimer
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(403, 235);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "label1";
+            this.highscoreTimer.Interval = 1000;
+            this.highscoreTimer.Tick += new System.EventHandler(this.highscoreTimer_Tick);
+            // 
+            // lblScore
+            // 
+            this.lblScore.AutoSize = true;
+            this.lblScore.Location = new System.Drawing.Point(538, 292);
+            this.lblScore.Name = "lblScore";
+            this.lblScore.Size = new System.Drawing.Size(49, 17);
+            this.lblScore.TabIndex = 5;
+            this.lblScore.Text = "Score:";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.Controls.Add(this.lblScore);
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnSolve);
             this.Controls.Add(this.btnNewGame);
             this.Controls.Add(this.gridPanel);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -118,7 +131,8 @@ namespace VP_Sudoku
         private System.Windows.Forms.Button btnSolve;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnOpen;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Timer highscoreTimer;
+        private System.Windows.Forms.Label lblScore;
     }
 }
 

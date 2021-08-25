@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 
 using Newtonsoft.Json;
+using System.Drawing;
 
 namespace VP_Sudoku
 {
@@ -39,6 +40,7 @@ namespace VP_Sudoku
         public int y;
         public int value = 0;
         public bool isLocked;
+        public Color color { get; set; }
 
         public GridCellDTO()
         {
