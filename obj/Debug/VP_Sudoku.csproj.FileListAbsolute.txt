@@ -11,3 +11,16 @@ C:\Users\MetoA\Desktop\Fakultet\faks-4-semestar\VP\VP_Sudoku\obj\Debug\VP_Sudoku
 C:\Users\MetoA\Desktop\Fakultet\faks-4-semestar\VP\VP_Sudoku\bin\Debug\Newtonsoft.Json.dll
 C:\Users\MetoA\Desktop\Fakultet\faks-4-semestar\VP\VP_Sudoku\bin\Debug\Newtonsoft.Json.xml
 C:\Users\MetoA\Desktop\Fakultet\faks-4-semestar\VP\VP_Sudoku\obj\Debug\VP_Sudoku.csproj.CopyComplete
+C:\Users\bilja\Desktop\METO\VP_Sudoku\bin\Debug\VP_Sudoku.exe.config
+C:\Users\bilja\Desktop\METO\VP_Sudoku\bin\Debug\VP_Sudoku.exe
+C:\Users\bilja\Desktop\METO\VP_Sudoku\bin\Debug\VP_Sudoku.pdb
+C:\Users\bilja\Desktop\METO\VP_Sudoku\bin\Debug\Newtonsoft.Json.dll
+C:\Users\bilja\Desktop\METO\VP_Sudoku\bin\Debug\Newtonsoft.Json.xml
+C:\Users\bilja\Desktop\METO\VP_Sudoku\obj\Debug\VP_Sudoku.csproj.AssemblyReference.cache
+C:\Users\bilja\Desktop\METO\VP_Sudoku\obj\Debug\VP_Sudoku.Form1.resources
+C:\Users\bilja\Desktop\METO\VP_Sudoku\obj\Debug\VP_Sudoku.Properties.Resources.resources
+C:\Users\bilja\Desktop\METO\VP_Sudoku\obj\Debug\VP_Sudoku.csproj.GenerateResource.cache
+C:\Users\bilja\Desktop\METO\VP_Sudoku\obj\Debug\VP_Sudoku.csproj.CoreCompileInputs.cache
+C:\Users\bilja\Desktop\METO\VP_Sudoku\obj\Debug\VP_Sudoku.csproj.CopyComplete
+C:\Users\bilja\Desktop\METO\VP_Sudoku\obj\Debug\VP_Sudoku.exe
+C:\Users\bilja\Desktop\METO\VP_Sudoku\obj\Debug\VP_Sudoku.pdb
