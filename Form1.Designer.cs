@@ -37,6 +37,7 @@ namespace VP_Sudoku
             this.btnOpen = new System.Windows.Forms.Button();
             this.highscoreTimer = new System.Windows.Forms.Timer(this.components);
             this.lblScore = new System.Windows.Forms.Label();
+            this.lblPlayTime = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // gridPanel
@@ -105,11 +106,21 @@ namespace VP_Sudoku
             this.lblScore.TabIndex = 5;
             this.lblScore.Text = "Score:";
             // 
+            // lblPlayTime
+            // 
+            this.lblPlayTime.AutoSize = true;
+            this.lblPlayTime.Location = new System.Drawing.Point(903, 9);
+            this.lblPlayTime.Name = "lblPlayTime";
+            this.lblPlayTime.Size = new System.Drawing.Size(69, 17);
+            this.lblPlayTime.TabIndex = 6;
+            this.lblPlayTime.Text = "Play time:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.Controls.Add(this.lblPlayTime);
             this.Controls.Add(this.lblScore);
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.btnSave);
@@ -133,6 +144,7 @@ namespace VP_Sudoku
         private System.Windows.Forms.Button btnOpen;
         private System.Windows.Forms.Timer highscoreTimer;
         private System.Windows.Forms.Label lblScore;
+        private System.Windows.Forms.Label lblPlayTime;
     }
 }
 

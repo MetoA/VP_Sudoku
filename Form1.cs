@@ -84,8 +84,9 @@ namespace VP_Sudoku
             highscoreTimer.Stop();
             openFile();
             fillGridCells(game.currentBoard, gridCells);
-            Console.WriteLine("Opened!");
+            lblPlayTime.Text = "Play time: " + game.playTimeToTime();
             highscoreTimer.Start();
+            Console.WriteLine("Opened!");
         }
 
         private void cell_keyPressed(object sender, KeyPressEventArgs e)
@@ -98,7 +99,6 @@ namespace VP_Sudoku
             {
                 cell.Clear();
                 return;
-                //Console.WriteLine("Backspace pressed!");
             }
 
             int value;
@@ -135,7 +135,14 @@ namespace VP_Sudoku
                     Console.WriteLine("FINISHED");
                 }
             }
+        }
 
+        private void highscoreTimer_Tick(object sender, EventArgs e)
+        {
+            game.score -= 10;
+            game.playTime++;
+            lblScore.Text = "Score: " + game.score;
+            lblPlayTime.Text = "Play time: " + game.playTimeToTime();
         }
         #endregion
 
@@ -273,11 +280,5 @@ namespace VP_Sudoku
             }
         }
         #endregion
-
-        private void highscoreTimer_Tick(object sender, EventArgs e)
-        {
-            game.score -= 10;
-            lblScore.Text = "Score: " + game.score;
-        }
     }
 }
