@@ -20,13 +20,19 @@ namespace VP_Sudoku
         GridCell[,] gridCells;
         string fileName;
         int countTracker;
+        string selectedDifficulty;
 
         public Form1()
         {
             InitializeComponent();
             btnSolve.Enabled = false;
             this.gridCells = new GridCell[9, 9];
-
+            //this.difficultyComboBox.ValueMember = "1";
+            //this.difficultyComboBox.DisplayMember = "1";
+            this.selectedDifficulty = "1";
+            difficultyComboBox.Items.Add("1");
+            difficultyComboBox.Items.Add("2");
+            difficultyComboBox.Items.Add("3");
         }
 
         #region EVENTS
@@ -34,7 +40,7 @@ namespace VP_Sudoku
         {
             btnSolve.Enabled = false;
             game = new Game();
-            game.gameDTO = await SudokuWebClient.GetSudokuTableAsync("http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9&level=3");
+            game.gameDTO = await SudokuWebClient.GetSudokuTableAsync("http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9&level=" + this.selectedDifficulty);
             countTracker = 81 - game.gameDTO.squares.Count;
             gridPanel.Controls.Clear();
 
@@ -43,7 +49,7 @@ namespace VP_Sudoku
             initializeBoard(game.initialBoard, game.gameDTO);
             initializeBoard(game.solvedBoard, game.gameDTO);
             fillGridCells(game.initialBoard, this.gridCells);
-            printGridCellDTOArray(game.currentBoard);
+
             SudokuSolver.SolveMatrix(game.solvedBoard);
             highscoreTimer.Start();
             lblScore.Text = "Score: " + game.score;
@@ -280,5 +286,10 @@ namespace VP_Sudoku
             }
         }
         #endregion
+
+        private void difficultyComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.selectedDifficulty = difficultyComboBox.SelectedItem.ToString();
+        }
     }
 }

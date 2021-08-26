@@ -38,6 +38,8 @@ namespace VP_Sudoku
             this.highscoreTimer = new System.Windows.Forms.Timer(this.components);
             this.lblScore = new System.Windows.Forms.Label();
             this.lblPlayTime = new System.Windows.Forms.Label();
+            this.difficultyComboBox = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // gridPanel
@@ -109,17 +111,38 @@ namespace VP_Sudoku
             // lblPlayTime
             // 
             this.lblPlayTime.AutoSize = true;
-            this.lblPlayTime.Location = new System.Drawing.Point(903, 9);
+            this.lblPlayTime.Location = new System.Drawing.Point(918, 9);
             this.lblPlayTime.Name = "lblPlayTime";
             this.lblPlayTime.Size = new System.Drawing.Size(69, 17);
             this.lblPlayTime.TabIndex = 6;
             this.lblPlayTime.Text = "Play time:";
+            // 
+            // difficultyComboBox
+            // 
+            this.difficultyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.difficultyComboBox.FormattingEnabled = true;
+            this.difficultyComboBox.Location = new System.Drawing.Point(1003, 45);
+            this.difficultyComboBox.Name = "difficultyComboBox";
+            this.difficultyComboBox.Size = new System.Drawing.Size(52, 24);
+            this.difficultyComboBox.TabIndex = 8;
+            this.difficultyComboBox.SelectedIndexChanged += new System.EventHandler(this.difficultyComboBox_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(881, 48);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(106, 17);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Select difficulty:";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.difficultyComboBox);
             this.Controls.Add(this.lblPlayTime);
             this.Controls.Add(this.lblScore);
             this.Controls.Add(this.btnOpen);
@@ -145,6 +168,8 @@ namespace VP_Sudoku
         private System.Windows.Forms.Timer highscoreTimer;
         private System.Windows.Forms.Label lblScore;
         private System.Windows.Forms.Label lblPlayTime;
+        private System.Windows.Forms.ComboBox difficultyComboBox;
+        private System.Windows.Forms.Label label1;
     }
 }
 
