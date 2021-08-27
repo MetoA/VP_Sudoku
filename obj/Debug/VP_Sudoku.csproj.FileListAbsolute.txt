@@ -24,3 +24,16 @@ C:\Users\bilja\Desktop\METO\VP_Sudoku\obj\Debug\VP_Sudoku.csproj.CoreCompileInpu
 C:\Users\bilja\Desktop\METO\VP_Sudoku\obj\Debug\VP_Sudoku.csproj.CopyComplete
 C:\Users\bilja\Desktop\METO\VP_Sudoku\obj\Debug\VP_Sudoku.exe
 C:\Users\bilja\Desktop\METO\VP_Sudoku\obj\Debug\VP_Sudoku.pdb
+D:\Projects\VP_Sudoku\bin\Debug\VP_Sudoku.exe.config
+D:\Projects\VP_Sudoku\bin\Debug\VP_Sudoku.exe
+D:\Projects\VP_Sudoku\bin\Debug\VP_Sudoku.pdb
+D:\Projects\VP_Sudoku\bin\Debug\Newtonsoft.Json.dll
+D:\Projects\VP_Sudoku\bin\Debug\Newtonsoft.Json.xml
+D:\Projects\VP_Sudoku\obj\Debug\VP_Sudoku.csproj.AssemblyReference.cache
+D:\Projects\VP_Sudoku\obj\Debug\VP_Sudoku.Form1.resources
+D:\Projects\VP_Sudoku\obj\Debug\VP_Sudoku.Properties.Resources.resources
+D:\Projects\VP_Sudoku\obj\Debug\VP_Sudoku.csproj.GenerateResource.cache
+D:\Projects\VP_Sudoku\obj\Debug\VP_Sudoku.csproj.CoreCompileInputs.cache
+D:\Projects\VP_Sudoku\obj\Debug\VP_Sudoku.csproj.CopyComplete
+D:\Projects\VP_Sudoku\obj\Debug\VP_Sudoku.exe
+D:\Projects\VP_Sudoku\obj\Debug\VP_Sudoku.pdb

@@ -40,22 +40,21 @@ namespace VP_Sudoku
             this.lblPlayTime = new System.Windows.Forms.Label();
             this.difficultyComboBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.lblHighScore = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // gridPanel
             // 
-            this.gridPanel.Location = new System.Drawing.Point(16, 15);
-            this.gridPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.gridPanel.Location = new System.Drawing.Point(12, 12);
             this.gridPanel.Name = "gridPanel";
-            this.gridPanel.Size = new System.Drawing.Size(480, 443);
+            this.gridPanel.Size = new System.Drawing.Size(360, 360);
             this.gridPanel.TabIndex = 0;
             // 
             // btnNewGame
             // 
-            this.btnNewGame.Location = new System.Drawing.Point(541, 15);
-            this.btnNewGame.Margin = new System.Windows.Forms.Padding(4);
+            this.btnNewGame.Location = new System.Drawing.Point(406, 12);
             this.btnNewGame.Name = "btnNewGame";
-            this.btnNewGame.Size = new System.Drawing.Size(100, 28);
+            this.btnNewGame.Size = new System.Drawing.Size(75, 23);
             this.btnNewGame.TabIndex = 1;
             this.btnNewGame.Text = "New Game";
             this.btnNewGame.UseVisualStyleBackColor = true;
@@ -63,10 +62,9 @@ namespace VP_Sudoku
             // 
             // btnSolve
             // 
-            this.btnSolve.Location = new System.Drawing.Point(541, 64);
-            this.btnSolve.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSolve.Location = new System.Drawing.Point(406, 52);
             this.btnSolve.Name = "btnSolve";
-            this.btnSolve.Size = new System.Drawing.Size(100, 28);
+            this.btnSolve.Size = new System.Drawing.Size(75, 23);
             this.btnSolve.TabIndex = 2;
             this.btnSolve.Text = "Solve";
             this.btnSolve.UseVisualStyleBackColor = true;
@@ -74,10 +72,9 @@ namespace VP_Sudoku
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(541, 172);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSave.Location = new System.Drawing.Point(406, 140);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(100, 28);
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 3;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -85,10 +82,9 @@ namespace VP_Sudoku
             // 
             // btnOpen
             // 
-            this.btnOpen.Location = new System.Drawing.Point(541, 224);
-            this.btnOpen.Margin = new System.Windows.Forms.Padding(4);
+            this.btnOpen.Location = new System.Drawing.Point(406, 182);
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(100, 28);
+            this.btnOpen.Size = new System.Drawing.Size(75, 23);
             this.btnOpen.TabIndex = 4;
             this.btnOpen.Text = "Open";
             this.btnOpen.UseVisualStyleBackColor = true;
@@ -102,18 +98,20 @@ namespace VP_Sudoku
             // lblScore
             // 
             this.lblScore.AutoSize = true;
-            this.lblScore.Location = new System.Drawing.Point(538, 292);
+            this.lblScore.Location = new System.Drawing.Point(404, 237);
+            this.lblScore.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblScore.Name = "lblScore";
-            this.lblScore.Size = new System.Drawing.Size(49, 17);
+            this.lblScore.Size = new System.Drawing.Size(38, 13);
             this.lblScore.TabIndex = 5;
             this.lblScore.Text = "Score:";
             // 
             // lblPlayTime
             // 
             this.lblPlayTime.AutoSize = true;
-            this.lblPlayTime.Location = new System.Drawing.Point(918, 9);
+            this.lblPlayTime.Location = new System.Drawing.Point(688, 7);
+            this.lblPlayTime.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblPlayTime.Name = "lblPlayTime";
-            this.lblPlayTime.Size = new System.Drawing.Size(69, 17);
+            this.lblPlayTime.Size = new System.Drawing.Size(52, 13);
             this.lblPlayTime.TabIndex = 6;
             this.lblPlayTime.Text = "Play time:";
             // 
@@ -121,26 +119,38 @@ namespace VP_Sudoku
             // 
             this.difficultyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.difficultyComboBox.FormattingEnabled = true;
-            this.difficultyComboBox.Location = new System.Drawing.Point(1003, 45);
+            this.difficultyComboBox.Location = new System.Drawing.Point(752, 37);
+            this.difficultyComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.difficultyComboBox.Name = "difficultyComboBox";
-            this.difficultyComboBox.Size = new System.Drawing.Size(52, 24);
+            this.difficultyComboBox.Size = new System.Drawing.Size(40, 21);
             this.difficultyComboBox.TabIndex = 8;
             this.difficultyComboBox.SelectedIndexChanged += new System.EventHandler(this.difficultyComboBox_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(881, 48);
+            this.label1.Location = new System.Drawing.Point(661, 39);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(106, 17);
+            this.label1.Size = new System.Drawing.Size(81, 13);
             this.label1.TabIndex = 9;
             this.label1.Text = "Select difficulty:";
             // 
+            // lblHighScore
+            // 
+            this.lblHighScore.AutoSize = true;
+            this.lblHighScore.Location = new System.Drawing.Point(407, 267);
+            this.lblHighScore.Name = "lblHighScore";
+            this.lblHighScore.Size = new System.Drawing.Size(138, 13);
+            this.lblHighScore.TabIndex = 10;
+            this.lblHighScore.Text = "High Score on this difficulty:";
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblHighScore);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.difficultyComboBox);
             this.Controls.Add(this.lblPlayTime);
@@ -150,7 +160,6 @@ namespace VP_Sudoku
             this.Controls.Add(this.btnSolve);
             this.Controls.Add(this.btnNewGame);
             this.Controls.Add(this.gridPanel);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -170,6 +179,7 @@ namespace VP_Sudoku
         private System.Windows.Forms.Label lblPlayTime;
         private System.Windows.Forms.ComboBox difficultyComboBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblHighScore;
     }
 }
 

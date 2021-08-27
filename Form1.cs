@@ -33,6 +33,10 @@ namespace VP_Sudoku
             difficultyComboBox.Items.Add("1");
             difficultyComboBox.Items.Add("2");
             difficultyComboBox.Items.Add("3");
+
+            FileService.init();
+
+            this.lblHighScore.Text = "High score on difficulty: " + FileService.getHighScoreFromDifficulty(selectedDifficulty);
         }
 
         #region EVENTS
@@ -138,6 +142,7 @@ namespace VP_Sudoku
                 if (countTracker <= 0)
                 {
                     highscoreTimer.Stop();
+                    FileService.writeToFile(FileService.getPathOfDifficulty(selectedDifficulty), game.score.ToString());
                     Console.WriteLine("FINISHED");
                 }
             }
@@ -149,6 +154,12 @@ namespace VP_Sudoku
             game.playTime++;
             lblScore.Text = "Score: " + game.score;
             lblPlayTime.Text = "Play time: " + game.playTimeToTime();
+        }
+
+        private void difficultyComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.selectedDifficulty = difficultyComboBox.SelectedItem.ToString();
+            this.lblHighScore.Text = "High score on difficulty: " + FileService.getHighScoreFromDifficulty(selectedDifficulty);
         }
         #endregion
 
@@ -286,10 +297,5 @@ namespace VP_Sudoku
             }
         }
         #endregion
-
-        private void difficultyComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.selectedDifficulty = difficultyComboBox.SelectedItem.ToString();
-        }
     }
 }
