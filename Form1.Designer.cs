@@ -30,6 +30,7 @@ namespace VP_Sudoku
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.gridPanel = new System.Windows.Forms.Panel();
             this.btnNewGame = new System.Windows.Forms.Button();
             this.btnSolve = new System.Windows.Forms.Button();
@@ -43,19 +44,24 @@ namespace VP_Sudoku
             this.lblHighScore = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.livesToolStrip = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.newToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // gridPanel
             // 
-            this.gridPanel.Location = new System.Drawing.Point(12, 12);
+            this.gridPanel.Location = new System.Drawing.Point(12, 28);
             this.gridPanel.Name = "gridPanel";
             this.gridPanel.Size = new System.Drawing.Size(360, 360);
             this.gridPanel.TabIndex = 0;
             // 
             // btnNewGame
             // 
-            this.btnNewGame.Location = new System.Drawing.Point(406, 12);
+            this.btnNewGame.Location = new System.Drawing.Point(406, 28);
             this.btnNewGame.Name = "btnNewGame";
             this.btnNewGame.Size = new System.Drawing.Size(75, 23);
             this.btnNewGame.TabIndex = 1;
@@ -65,7 +71,7 @@ namespace VP_Sudoku
             // 
             // btnSolve
             // 
-            this.btnSolve.Location = new System.Drawing.Point(406, 52);
+            this.btnSolve.Location = new System.Drawing.Point(406, 57);
             this.btnSolve.Name = "btnSolve";
             this.btnSolve.Size = new System.Drawing.Size(75, 23);
             this.btnSolve.TabIndex = 2;
@@ -75,7 +81,7 @@ namespace VP_Sudoku
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(406, 140);
+            this.btnSave.Location = new System.Drawing.Point(406, 86);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 3;
@@ -85,7 +91,7 @@ namespace VP_Sudoku
             // 
             // btnOpen
             // 
-            this.btnOpen.Location = new System.Drawing.Point(406, 182);
+            this.btnOpen.Location = new System.Drawing.Point(406, 115);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(75, 23);
             this.btnOpen.TabIndex = 4;
@@ -101,7 +107,7 @@ namespace VP_Sudoku
             // lblScore
             // 
             this.lblScore.AutoSize = true;
-            this.lblScore.Location = new System.Drawing.Point(404, 237);
+            this.lblScore.Location = new System.Drawing.Point(403, 152);
             this.lblScore.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblScore.Name = "lblScore";
             this.lblScore.Size = new System.Drawing.Size(38, 13);
@@ -111,7 +117,7 @@ namespace VP_Sudoku
             // lblPlayTime
             // 
             this.lblPlayTime.AutoSize = true;
-            this.lblPlayTime.Location = new System.Drawing.Point(688, 7);
+            this.lblPlayTime.Location = new System.Drawing.Point(403, 349);
             this.lblPlayTime.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblPlayTime.Name = "lblPlayTime";
             this.lblPlayTime.Size = new System.Drawing.Size(52, 13);
@@ -122,7 +128,7 @@ namespace VP_Sudoku
             // 
             this.difficultyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.difficultyComboBox.FormattingEnabled = true;
-            this.difficultyComboBox.Location = new System.Drawing.Point(752, 37);
+            this.difficultyComboBox.Location = new System.Drawing.Point(488, 372);
             this.difficultyComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.difficultyComboBox.Name = "difficultyComboBox";
             this.difficultyComboBox.Size = new System.Drawing.Size(40, 21);
@@ -132,7 +138,7 @@ namespace VP_Sudoku
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(661, 39);
+            this.label1.Location = new System.Drawing.Point(403, 375);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(81, 13);
@@ -142,7 +148,7 @@ namespace VP_Sudoku
             // lblHighScore
             // 
             this.lblHighScore.AutoSize = true;
-            this.lblHighScore.Location = new System.Drawing.Point(407, 267);
+            this.lblHighScore.Location = new System.Drawing.Point(403, 178);
             this.lblHighScore.Name = "lblHighScore";
             this.lblHighScore.Size = new System.Drawing.Size(138, 13);
             this.lblHighScore.TabIndex = 10;
@@ -152,9 +158,9 @@ namespace VP_Sudoku
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.livesToolStrip});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 428);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 408);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(595, 22);
             this.statusStrip1.TabIndex = 11;
             this.statusStrip1.Text = "hello";
             // 
@@ -164,11 +170,54 @@ namespace VP_Sudoku
             this.livesToolStrip.Size = new System.Drawing.Size(56, 17);
             this.livesToolStrip.Text = "Lives left:";
             // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newToolStripButton,
+            this.openToolStripButton,
+            this.saveToolStripButton});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(595, 25);
+            this.toolStrip1.TabIndex = 12;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // newToolStripButton
+            // 
+            this.newToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.newToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripButton.Image")));
+            this.newToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.newToolStripButton.Name = "newToolStripButton";
+            this.newToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.newToolStripButton.Text = "&New";
+            this.newToolStripButton.Click += new System.EventHandler(this.newToolStripButton_Click);
+            // 
+            // openToolStripButton
+            // 
+            this.openToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.openToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripButton.Image")));
+            this.openToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.openToolStripButton.Name = "openToolStripButton";
+            this.openToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.openToolStripButton.Text = "&Open";
+            this.openToolStripButton.Click += new System.EventHandler(this.openToolStripButton_Click);
+            // 
+            // saveToolStripButton
+            // 
+            this.saveToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.saveToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripButton.Image")));
+            this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.saveToolStripButton.Name = "saveToolStripButton";
+            this.saveToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.saveToolStripButton.Text = "&Save";
+            this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(595, 430);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.lblHighScore);
             this.Controls.Add(this.label1);
@@ -185,6 +234,8 @@ namespace VP_Sudoku
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -205,6 +256,10 @@ namespace VP_Sudoku
         private System.Windows.Forms.Label lblHighScore;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel livesToolStrip;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton newToolStripButton;
+        private System.Windows.Forms.ToolStripButton openToolStripButton;
+        private System.Windows.Forms.ToolStripButton saveToolStripButton;
     }
 }
 

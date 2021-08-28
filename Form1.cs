@@ -113,6 +113,7 @@ namespace VP_Sudoku
 
         private void saveFile()
         {
+            highscoreTimer.Stop();
             if (fileName == null)
             {
                 SaveFileDialog sfd = new SaveFileDialog();
@@ -131,10 +132,12 @@ namespace VP_Sudoku
                     formatter.Serialize(fileStream, game);
                 }
             }
+            highscoreTimer.Start();
         }
 
         private void openFile()
         {
+            highscoreTimer.Stop();
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Sudoku file (*.sud)|*.sud";
             ofd.Title = "Open Sudoku game";
@@ -155,9 +158,11 @@ namespace VP_Sudoku
                 {
                     MessageBox.Show("Cannot read file: " + fileName);
                     fileName = null;
+                    highscoreTimer.Start();
                     return;
                 }
             }
+            highscoreTimer.Start();
         }
         #endregion
 
@@ -374,5 +379,20 @@ namespace VP_Sudoku
             btnSolve.Enabled = false;
         }
         #endregion
+
+        private void newToolStripButton_Click(object sender, EventArgs e)
+        {
+            createNewGame();
+        }
+
+        private void openToolStripButton_Click(object sender, EventArgs e)
+        {
+            openFile();
+        }
+
+        private void saveToolStripButton_Click(object sender, EventArgs e)
+        {
+            saveFile();
+        }
     }
 }
