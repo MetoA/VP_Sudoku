@@ -9,7 +9,15 @@ namespace VP_Sudoku
 {
     public class SudokuSolver
     {
-        public static bool IsValidMatrix(GridCellDTO[,] grid, int row, int col, int num)
+        /// <summary>
+        /// In a given grid, checks wether the value to be input is compliant with the sudoku rules.
+        /// </summary>
+        /// <param name="grid">The grid to be checked.</param>
+        /// <param name="row">The row in the grid to be checked.</param>
+        /// <param name="col">The column in the grid to be checked.</param>
+        /// <param name="num">The value being checked.</param>
+        /// <returns></returns>
+        public static bool IsValid(GridCellDTO[,] grid, int row, int col, int num)
         {
             for (int i = 0; i < 9; i++)
                 if (grid[row, i].value == num) return false;
@@ -27,6 +35,11 @@ namespace VP_Sudoku
             return true;
         }
 
+        /// <summary>
+        /// Solves the specified matrix of GridCellDTO.
+        /// </summary>
+        /// <param name="grid">The grid to be solved.</param>
+        /// <returns>Wether or not the grid was solved.</returns>
         public static bool SolveMatrix(GridCellDTO[,] grid)
         {
             int row = -1;
@@ -54,7 +67,7 @@ namespace VP_Sudoku
 
             for (int num = 1; num <= 9; num++)
             {
-                if (!grid[row, col].isLocked && IsValidMatrix(grid, row, col, num))
+                if (!grid[row, col].isLocked && IsValid(grid, row, col, num))
                 {
                     grid[row, col].value = num;
                     if (SolveMatrix(grid))

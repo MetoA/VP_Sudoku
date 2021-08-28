@@ -23,21 +23,36 @@ namespace VP_Sudoku
 
         public Form1()
         {
-            this.Text = "Sudoku!";
             InitializeComponent();
             formInit();
         }
 
         #region EVENTS
+        /// <summary>
+        /// Starts a new game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnNewGame_Click(object sender, EventArgs e)
         {
             createNewGame();
         }
 
+        /// <summary>
+        /// Solves the current active game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSolve_Click(object sender, EventArgs e)
         {
             solveGame();
         }
+
+        /// <summary>
+        /// Saves the current active game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
             highscoreTimer.Stop();
@@ -45,6 +60,11 @@ namespace VP_Sudoku
             highscoreTimer.Start();
         }
 
+        /// <summary>
+        /// Loads the selected game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnOpen_Click(object sender, EventArgs e)
         {
             highscoreTimer.Stop();
@@ -59,6 +79,11 @@ namespace VP_Sudoku
             highscoreTimer.Start();
         }
 
+        /// <summary>
+        /// Logic when inputting a value in a grid cell.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cell_keyPressed(object sender, KeyPressEventArgs e)
         {
             GridCell cell = sender as GridCell;
@@ -88,6 +113,11 @@ namespace VP_Sudoku
             }
         }
 
+        /// <summary>
+        /// Logic when the timer ticks.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void highscoreTimer_Tick(object sender, EventArgs e)
         {
             game.score -= 10;
@@ -97,20 +127,63 @@ namespace VP_Sudoku
             lblPlayTime.Text = "Play time: " + game.playTimeToTime();
         }
 
+        /// <summary>
+        /// Logic when a different difficulty is chosen from the combo box.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void difficultyComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             selectedDifficulty = difficultyComboBox.SelectedItem.ToString();
             lblHighScore.Text = "High score on difficulty: " + FileService.getHighScoreFromDifficulty(selectedDifficulty);
         }
 
+        /// <summary>
+        /// Prompts the user to save the current active game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             if(btnSave.Enabled == true) createFormExitDialog();
+        }
+
+        /// <summary>
+        /// Starts a new game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void newToolStripButton_Click(object sender, EventArgs e)
+        {
+            createNewGame();
+        }
+
+        /// <summary>
+        /// Loads the selected game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void openToolStripButton_Click(object sender, EventArgs e)
+        {
+            openFile();
+        }
+
+        /// <summary>
+        /// Saves the current active game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void saveToolStripButton_Click(object sender, EventArgs e)
+        {
+            saveFile();
         }
         #endregion
 
         #region SAVING
 
+        /// <summary>
+        /// Saves the current active game to a .sud file.
+        /// </summary>
         private void saveFile()
         {
             highscoreTimer.Stop();
@@ -135,6 +208,9 @@ namespace VP_Sudoku
             highscoreTimer.Start();
         }
 
+        /// <summary>
+        /// Loads the selected .sud file.
+        /// </summary>
         private void openFile()
         {
             highscoreTimer.Stop();
@@ -167,6 +243,10 @@ namespace VP_Sudoku
         #endregion
 
         #region CUSTOM_FUNCTIONS
+
+        /// <summary>
+        /// Creates the GridCells in a panel, adds styling to them and the key press event.
+        /// </summary>
         private void createGrid()
         {
             for (int i = 0; i < 9; i++)
@@ -191,6 +271,11 @@ namespace VP_Sudoku
             }
         }
 
+        /// <summary>
+        /// Populates the panel's grid cells with information and styling.
+        /// </summary>
+        /// <param name="gridCellsDTO">Information from which to populate the panel.</param>
+        /// <param name="gridCells">The grid cells which to be populated.</param>
         private void fillGridCells(GridCellDTO[,] gridCellsDTO, GridCell[,] gridCells)
         {
             for(int i = 0; i < 9; i++)
@@ -218,6 +303,11 @@ namespace VP_Sudoku
 
         }
 
+        /// <summary>
+        /// Initializes an empty board for a specified game.
+        /// </summary>
+        /// <param name="board">The board to be initialized with default information.</param>
+        /// <param name="game">The game from which to get information.</param>
         private void initializeBoard(GridCellDTO[,] board, GameDTO game)
         {
             for (int i = 0; i < 9; i++)
@@ -232,6 +322,10 @@ namespace VP_Sudoku
             }
         }
 
+        /// <summary>
+        /// Prints information of a board. Purely for testing purposes.
+        /// </summary>
+        /// <param name="board">The board to be printed.</param>
         private void printGridCellDTOArray(GridCellDTO[,] board)
         {
             for (int i = 0; i < 9; i++)
@@ -244,24 +338,32 @@ namespace VP_Sudoku
             }
         }
 
+        /// <summary>
+        /// Creates a message box prompting the user if they want to play another game.
+        /// </summary>
+        /// <param name="title">The title of the message box.</param>
         private void createGameResultDialog(string title)
         {
             DialogResult result = MessageBox.Show("Do you want to play another game?", title, MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes) createNewGame();
-            //if (result == DialogResult.No)
         }
 
+        /// <summary>
+        /// Creates a message box upon exiting the game, prompting the user if they want to save the current active game if there is one.
+        /// </summary>
         private void createFormExitDialog()
         {
             highscoreTimer.Stop();
 
             DialogResult result = MessageBox.Show("Do you want to save your game before you leave?", "Attention!", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes) saveFile();
-            //if (result == DialogResult.No)
 
             highscoreTimer.Start();
         }
 
+        /// <summary>
+        /// Initializes the form.
+        /// </summary>
         private void formInit()
         {
             btnSolve.Enabled = false;
@@ -279,6 +381,9 @@ namespace VP_Sudoku
             lblHighScore.Text = "High score on difficulty: " + FileService.getHighScoreFromDifficulty(selectedDifficulty);
         }
 
+        /// <summary>
+        /// Starts a new game to be played.
+        /// </summary>
         private async void createNewGame()
         {
             btnSolve.Enabled = false;
@@ -305,6 +410,9 @@ namespace VP_Sudoku
             highscoreTimer.Start();
         }
 
+        /// <summary>
+        /// Populates the grid cells with information of the solved game.
+        /// </summary>
         private void solveGame()
         {
             for (int i = 0; i < 9; i++)
@@ -324,6 +432,10 @@ namespace VP_Sudoku
             highscoreTimer.Stop();
         }
 
+        /// <summary>
+        /// Logic when inputting the correct value in a grid cell.
+        /// </summary>
+        /// <param name="cell">The grid cell which had value inputted.</param>
         private void onCorrectKey(GridCell cell)
         {
             cell.ForeColor = Color.Green;
@@ -338,6 +450,10 @@ namespace VP_Sudoku
             lblScore.Text = "Score: " + game.score;
         }
 
+        /// <summary>
+        /// Logic when inputting the wrong value in a grid cell.
+        /// </summary>
+        /// <param name="cell">The grid cell which had value inputted.</param>
         private void onWrongKey(GridCell cell)
         {
             cell.ForeColor = Color.Red;
@@ -350,6 +466,9 @@ namespace VP_Sudoku
             livesToolStrip.Text = "Lives left: " + game.livesLeft;
         }
 
+        /// <summary>
+        /// Writes the score to the correct file and prompts the user for a new game.
+        /// </summary>
         private void onWin()
         {
             highscoreTimer.Stop();
@@ -357,14 +476,19 @@ namespace VP_Sudoku
             createGameResultDialog("You Won!");
         }
 
+        /// <summary>
+        /// Prompts the user for a new game, if denied, the grid cells will be disabled.
+        /// </summary>
         private void onLoss()
         {
             highscoreTimer.Stop();
             createGameResultDialog("You Lost!");
             clear();
-            livesToolStrip.Text = "Lives left: " + game.livesLeft;
         }
 
+        /// <summary>
+        /// Disables the grid cells, save button and solve button.
+        /// </summary>
         private void clear()
         {
             for(int i = 0; i < 9; i++)
@@ -379,20 +503,5 @@ namespace VP_Sudoku
             btnSolve.Enabled = false;
         }
         #endregion
-
-        private void newToolStripButton_Click(object sender, EventArgs e)
-        {
-            createNewGame();
-        }
-
-        private void openToolStripButton_Click(object sender, EventArgs e)
-        {
-            openFile();
-        }
-
-        private void saveToolStripButton_Click(object sender, EventArgs e)
-        {
-            saveFile();
-        }
     }
 }

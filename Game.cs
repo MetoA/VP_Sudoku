@@ -33,6 +33,10 @@ namespace VP_Sudoku
             livesLeft = int.Parse(difficulty) + 2;
         }
 
+        /// <summary>
+        /// Parses the ammount of seconds played into mm:ss (minutes, seconds).
+        /// </summary>
+        /// <returns>A parsed string from the ammount of seconds played.</returns>
         public string playTimeToTime()
         {
             long minutes = (long)Math.Floor(playTime / 60f);

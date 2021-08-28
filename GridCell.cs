@@ -21,6 +21,9 @@ namespace VP_Sudoku
             this._value = 0;
         }
 
+        /// <summary>
+        /// Clears the specified GridCell.
+        /// </summary>
         public void Clear()
         {
             this.Text = "";

@@ -16,6 +16,11 @@ namespace VP_Sudoku
     {
         static HttpClient client = new HttpClient();
 
+        /// <summary>
+        /// Gets the sudoku table information from an API.
+        /// </summary>
+        /// <param name="path">The URL at which the async HTTP GET will be performed.</param>
+        /// <returns></returns>
         public static async Task<GameDTO> GetSudokuTableAsync(string path)
         {
             string message = await client.GetStringAsync(path);
