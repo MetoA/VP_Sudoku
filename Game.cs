@@ -12,9 +12,21 @@ namespace VP_Sudoku
     [Serializable]
     class Game
     {
-        public GridCellDTO[,] currentBoard { get; set; }
+        /// <summary>
+        /// The board which we start with.
+        /// </summary>
         public GridCellDTO[,] initialBoard { get; set; }
+        /// <summary>
+        /// The solved board after it was initialized.
+        /// </summary>
         public GridCellDTO[,] solvedBoard { get; set; }
+        /// <summary>
+        /// The current board which is being updated as you play.
+        /// </summary>
+        public GridCellDTO[,] currentBoard { get; set; }
+        /// <summary>
+        /// The information we get from the API call.
+        /// </summary>
         public GameDTO gameDTO { get; set; }
         public int score { get; set; }
         public int livesLeft { get; set; }

@@ -10,32 +10,6 @@ namespace VP_Sudoku
     public class SudokuSolver
     {
         /// <summary>
-        /// In a given grid, checks wether the value to be input is compliant with the sudoku rules.
-        /// </summary>
-        /// <param name="grid">The grid to be checked.</param>
-        /// <param name="row">The row in the grid to be checked.</param>
-        /// <param name="col">The column in the grid to be checked.</param>
-        /// <param name="num">The value being checked.</param>
-        /// <returns></returns>
-        public static bool IsValid(GridCellDTO[,] grid, int row, int col, int num)
-        {
-            for (int i = 0; i < 9; i++)
-                if (grid[row, i].value == num) return false;
-
-            for (int i = 0; i < 9; i++)
-                if (grid[i, col].value == num) return false;
-
-            int rowStart = row - row % 3;
-            int colStart = col - col % 3;
-
-            for (int i = rowStart; i < rowStart + 3; i++)
-                for (int j = colStart; j < colStart + 3; j++)
-                    if (grid[i, j].value == num) return false;
-
-            return true;
-        }
-
-        /// <summary>
         /// Solves the specified matrix of GridCellDTO.
         /// </summary>
         /// <param name="grid">The grid to be solved.</param>
@@ -82,6 +56,33 @@ namespace VP_Sudoku
             }
 
             return false;
+        }
+
+
+        /// <summary>
+        /// In a given grid, checks wether the value to be input is compliant with the sudoku rules.
+        /// </summary>
+        /// <param name="grid">The grid to be checked.</param>
+        /// <param name="row">The row in the grid to be checked.</param>
+        /// <param name="col">The column in the grid to be checked.</param>
+        /// <param name="num">The value being checked.</param>
+        /// <returns></returns>
+        public static bool IsValid(GridCellDTO[,] grid, int row, int col, int num)
+        {
+            for (int i = 0; i < 9; i++)
+                if (grid[row, i].value == num) return false;
+
+            for (int i = 0; i < 9; i++)
+                if (grid[i, col].value == num) return false;
+
+            int rowStart = row - row % 3;
+            int colStart = col - col % 3;
+
+            for (int i = rowStart; i < rowStart + 3; i++)
+                for (int j = colStart; j < colStart + 3; j++)
+                    if (grid[i, j].value == num) return false;
+
+            return true;
         }
     }
 }
