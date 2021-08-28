@@ -68,7 +68,7 @@ namespace VP_Sudoku
 
         public static string getPathOfDifficulty(string difficulty)
         {
-            return FileService.completePath + "\\diff" + difficulty + ".txt";
+            return completePath + "\\diff" + difficulty + ".txt";
         }
     }
 }

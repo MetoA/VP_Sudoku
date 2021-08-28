@@ -13,17 +13,17 @@ using System.Windows.Forms;
 
 namespace VP_Sudoku
 {
-    //panel clear controls on new game, add controls on creating grid
     public partial class Form1 : Form
     {
         Game game = null;
         GridCell[,] gridCells;
-        string fileName;
         int countTracker;
+        string fileName;
         string selectedDifficulty;
 
         public Form1()
         {
+            this.Text = "Sudoku!";
             InitializeComponent();
             formInit();
         }
@@ -42,18 +42,20 @@ namespace VP_Sudoku
         {
             highscoreTimer.Stop();
             saveFile();
-            Console.WriteLine("Saved!");
             highscoreTimer.Start();
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
             highscoreTimer.Stop();
+
+            if (gridCells[0, 0] == null) createGrid();
             openFile();
             fillGridCells(game.currentBoard, gridCells);
+
             lblPlayTime.Text = "Play time: " + game.playTimeToTime();
             livesToolStrip.Text = "Lives left: " + game.livesLeft;
-            Console.WriteLine("Opened!");
+
             highscoreTimer.Start();
         }
 
@@ -73,28 +75,16 @@ namespace VP_Sudoku
 
             if (int.TryParse(e.KeyChar.ToString(), out value))
             {
-                if (value == game.solvedBoard[cell.X, cell.Y].value) //Correct
-                {
-                    onCorrectKey(cell);
-                }
-                else //Wrong
-                {
-                    onWrongKey(cell);
-                }
+                if (value == game.solvedBoard[cell.X, cell.Y].value) onCorrectKey(cell); 
+                else  onWrongKey(cell);
 
                 game.currentBoard[cell.X, cell.Y].value = value;
                 cell.Value = value;
                 cell.Text = cell.Value.ToString();
 
-                if (countTracker <= 0)
-                {
-                    onWin();
-                }
+                if (countTracker <= 0) onWin();
 
-                if(game.livesLeft <= 0)
-                {
-                    onLoss();
-                }
+                if(game.livesLeft <= 0) onLoss();
             }
         }
 
@@ -102,14 +92,20 @@ namespace VP_Sudoku
         {
             game.score -= 10;
             game.playTime++;
+
             lblScore.Text = "Score: " + game.score;
             lblPlayTime.Text = "Play time: " + game.playTimeToTime();
         }
 
         private void difficultyComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.selectedDifficulty = difficultyComboBox.SelectedItem.ToString();
-            this.lblHighScore.Text = "High score on difficulty: " + FileService.getHighScoreFromDifficulty(selectedDifficulty);
+            selectedDifficulty = difficultyComboBox.SelectedItem.ToString();
+            lblHighScore.Text = "High score on difficulty: " + FileService.getHighScoreFromDifficulty(selectedDifficulty);
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(btnSave.Enabled == true) createFormExitDialog();
         }
         #endregion
 
@@ -124,10 +120,7 @@ namespace VP_Sudoku
                 sfd.Title = "Save Sudoku game";
                 sfd.FileName = fileName;
 
-                if(sfd.ShowDialog() == DialogResult.OK)
-                {
-                    fileName = sfd.FileName;
-                }
+                if(sfd.ShowDialog() == DialogResult.OK) fileName = sfd.FileName;
             }
 
             if (fileName != null)
@@ -187,9 +180,7 @@ namespace VP_Sudoku
                         Font = new Font(SystemFonts.DefaultFont.FontFamily, 20)
                     };
                     gridCells[i, j].FlatAppearance.BorderColor = Color.Black;
-
                     gridCells[i, j].KeyPress += cell_keyPressed;
-
                     gridPanel.Controls.Add(gridCells[i, j]);
                 }
             }
@@ -248,33 +239,39 @@ namespace VP_Sudoku
             }
         }
 
-        private void createDialog(string title)
+        private void createGameResultDialog(string title)
         {
             DialogResult result = MessageBox.Show("Do you want to play another game?", title, MessageBoxButtons.YesNo);
-            if (result == DialogResult.Yes)
-            {
-                //code for creating new game
-                createNewGame();
-            }
-            if (result == DialogResult.No)
-            {
-                //nothing?
-            }
+            if (result == DialogResult.Yes) createNewGame();
+            //if (result == DialogResult.No)
+        }
+
+        private void createFormExitDialog()
+        {
+            highscoreTimer.Stop();
+
+            DialogResult result = MessageBox.Show("Do you want to save your game before you leave?", "Attention!", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes) saveFile();
+            //if (result == DialogResult.No)
+
+            highscoreTimer.Start();
         }
 
         private void formInit()
         {
             btnSolve.Enabled = false;
             btnSave.Enabled = false;
-            this.gridCells = new GridCell[9, 9];
-            this.selectedDifficulty = "1";
+
+            gridCells = new GridCell[9, 9];
+            selectedDifficulty = "1";
+
             difficultyComboBox.Items.Add("1");
             difficultyComboBox.Items.Add("2");
             difficultyComboBox.Items.Add("3");
 
             FileService.init();
 
-            this.lblHighScore.Text = "High score on difficulty: " + FileService.getHighScoreFromDifficulty(selectedDifficulty);
+            lblHighScore.Text = "High score on difficulty: " + FileService.getHighScoreFromDifficulty(selectedDifficulty);
         }
 
         private async void createNewGame()
@@ -282,29 +279,29 @@ namespace VP_Sudoku
             btnSolve.Enabled = false;
             btnSave.Enabled = false;
 
-            game = new Game(this.selectedDifficulty);
-            game.gameDTO = await SudokuWebClient.GetSudokuTableAsync("http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9&level=" + this.selectedDifficulty);
+            game = new Game(selectedDifficulty);
+            game.gameDTO = await SudokuWebClient.GetSudokuTableAsync("http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9&level=" + selectedDifficulty);
             countTracker = 81 - game.gameDTO.squares.Count;
-            gridPanel.Controls.Clear();
-            livesToolStrip.Text = "Lives left: " + game.livesLeft;
 
+            gridPanel.Controls.Clear();
             createGrid();
             initializeBoard(game.currentBoard, game.gameDTO);
             initializeBoard(game.initialBoard, game.gameDTO);
             initializeBoard(game.solvedBoard, game.gameDTO);
-            fillGridCells(game.initialBoard, this.gridCells);
-
+            fillGridCells(game.initialBoard, gridCells);
             SudokuSolver.SolveMatrix(game.solvedBoard);
-            highscoreTimer.Start();
+
+            livesToolStrip.Text = "Lives left: " + game.livesLeft;
             lblScore.Text = "Score: " + game.score;
 
             btnSave.Enabled = true;
             btnSolve.Enabled = true;
+
+            highscoreTimer.Start();
         }
 
         private void solveGame()
         {
-            Console.WriteLine("Solving...");
             for (int i = 0; i < 9; i++)
             {
                 for (int j = 0; j < 9; j++)
@@ -318,30 +315,33 @@ namespace VP_Sudoku
                     }
                 }
             }
+
             highscoreTimer.Stop();
-            Console.WriteLine("Solved! Thank you for trying.");
         }
 
         private void onCorrectKey(GridCell cell)
         {
             cell.ForeColor = Color.Green;
             cell.IsLocked = true;
-            countTracker--;
 
             game.currentBoard[cell.X, cell.Y].color = Color.Green;
             game.currentBoard[cell.X, cell.Y].isLocked = true;
-
             game.score += 50;
+
+            countTracker--;
+
             lblScore.Text = "Score: " + game.score;
         }
 
         private void onWrongKey(GridCell cell)
         {
             cell.ForeColor = Color.Red;
+
             game.currentBoard[cell.X, cell.Y].color = Color.Red;
             game.score -= 10;
-            lblScore.Text = "Score: " + game.score;
             game.livesLeft -= 1;
+
+            lblScore.Text = "Score: " + game.score;
             livesToolStrip.Text = "Lives left: " + game.livesLeft;
         }
 
@@ -349,18 +349,15 @@ namespace VP_Sudoku
         {
             highscoreTimer.Stop();
             FileService.writeToFile(FileService.getPathOfDifficulty(selectedDifficulty), game.score.ToString());
-            Console.WriteLine("FINISHED");
-            createDialog("You Won!");
+            createGameResultDialog("You Won!");
         }
 
         private void onLoss()
         {
-            //all the buttons should be disabled for playing
             highscoreTimer.Stop();
-            Console.WriteLine("You lost");
-            livesToolStrip.Text = "Lives left: " + game.livesLeft;
-            createDialog("You Lost!");
+            createGameResultDialog("You Lost!");
             clear();
+            livesToolStrip.Text = "Lives left: " + game.livesLeft;
         }
 
         private void clear()

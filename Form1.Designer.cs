@@ -181,7 +181,8 @@ namespace VP_Sudoku
             this.Controls.Add(this.btnNewGame);
             this.Controls.Add(this.gridPanel);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Sudoku";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);

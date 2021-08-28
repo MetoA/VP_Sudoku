@@ -23,14 +23,14 @@ namespace VP_Sudoku
 
         public Game(string difficulty)
         {
-            this.currentBoard = new GridCellDTO[9, 9];
-            this.initialBoard = new GridCellDTO[9, 9];
-            this.solvedBoard = new GridCellDTO[9, 9];
-            this.score = 200;
-            this.playTime = 0;
+            currentBoard = new GridCellDTO[9, 9];
+            initialBoard = new GridCellDTO[9, 9];
+            solvedBoard = new GridCellDTO[9, 9];
+            score = 200;
+            playTime = 0;
 
             this.difficulty = difficulty;
-            this.livesLeft = int.Parse(difficulty) + 2;
+            livesLeft = int.Parse(difficulty) + 2;
         }
 
         public string playTimeToTime()
