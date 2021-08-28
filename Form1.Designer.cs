@@ -41,6 +41,9 @@ namespace VP_Sudoku
             this.difficultyComboBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lblHighScore = new System.Windows.Forms.Label();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.livesToolStrip = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // gridPanel
@@ -120,7 +123,7 @@ namespace VP_Sudoku
             this.difficultyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.difficultyComboBox.FormattingEnabled = true;
             this.difficultyComboBox.Location = new System.Drawing.Point(752, 37);
-            this.difficultyComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.difficultyComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.difficultyComboBox.Name = "difficultyComboBox";
             this.difficultyComboBox.Size = new System.Drawing.Size(40, 21);
             this.difficultyComboBox.TabIndex = 8;
@@ -145,11 +148,28 @@ namespace VP_Sudoku
             this.lblHighScore.TabIndex = 10;
             this.lblHighScore.Text = "High Score on this difficulty:";
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.livesToolStrip});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 428);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
+            this.statusStrip1.TabIndex = 11;
+            this.statusStrip1.Text = "hello";
+            // 
+            // livesToolStrip
+            // 
+            this.livesToolStrip.Name = "livesToolStrip";
+            this.livesToolStrip.Size = new System.Drawing.Size(56, 17);
+            this.livesToolStrip.Text = "Lives left:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.lblHighScore);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.difficultyComboBox);
@@ -162,6 +182,8 @@ namespace VP_Sudoku
             this.Controls.Add(this.gridPanel);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -180,6 +202,8 @@ namespace VP_Sudoku
         private System.Windows.Forms.ComboBox difficultyComboBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblHighScore;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel livesToolStrip;
     }
 }
 

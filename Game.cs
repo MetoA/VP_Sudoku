@@ -13,19 +13,24 @@ namespace VP_Sudoku
     class Game
     {
         public GridCellDTO[,] currentBoard { get; set; }
-        public GameDTO gameDTO { get; set; }
         public GridCellDTO[,] initialBoard { get; set; }
         public GridCellDTO[,] solvedBoard { get; set; }
+        public GameDTO gameDTO { get; set; }
         public int score { get; set; }
+        public int livesLeft { get; set; }
         public long playTime { get; set; }
+        public string difficulty { get; set; }
 
-        public Game()
+        public Game(string difficulty)
         {
             this.currentBoard = new GridCellDTO[9, 9];
             this.initialBoard = new GridCellDTO[9, 9];
             this.solvedBoard = new GridCellDTO[9, 9];
             this.score = 200;
             this.playTime = 0;
+
+            this.difficulty = difficulty;
+            this.livesLeft = int.Parse(difficulty) + 2;
         }
 
         public string playTimeToTime()
@@ -35,17 +40,5 @@ namespace VP_Sudoku
 
             return string.Format("{0:D2}:{1:D2}", minutes, seconds);
         }
-
-        //public async Task<GameDTO> NewGame()
-        //{
-        //    this.gameDTO = await SudokuWebClient.GetSudokuTableAsync("http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9&level=3");
-        //    return gameDTO;
-        //}
-
-        //public void Solve()
-        //{
-        //    SudokuSolver.Solve(gridCells);
-        //}
-
     }
 }

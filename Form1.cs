@@ -25,61 +25,18 @@ namespace VP_Sudoku
         public Form1()
         {
             InitializeComponent();
-            btnSolve.Enabled = false;
-            this.gridCells = new GridCell[9, 9];
-            //this.difficultyComboBox.ValueMember = "1";
-            //this.difficultyComboBox.DisplayMember = "1";
-            this.selectedDifficulty = "1";
-            difficultyComboBox.Items.Add("1");
-            difficultyComboBox.Items.Add("2");
-            difficultyComboBox.Items.Add("3");
-
-            FileService.init();
-
-            this.lblHighScore.Text = "High score on difficulty: " + FileService.getHighScoreFromDifficulty(selectedDifficulty);
+            formInit();
         }
 
         #region EVENTS
-        private async void btnNewGame_Click(object sender, EventArgs e)
+        private void btnNewGame_Click(object sender, EventArgs e)
         {
-            btnSolve.Enabled = false;
-            game = new Game();
-            game.gameDTO = await SudokuWebClient.GetSudokuTableAsync("http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9&level=" + this.selectedDifficulty);
-            countTracker = 81 - game.gameDTO.squares.Count;
-            gridPanel.Controls.Clear();
-
-            createGrid();
-            initializeBoard(game.currentBoard, game.gameDTO);
-            initializeBoard(game.initialBoard, game.gameDTO);
-            initializeBoard(game.solvedBoard, game.gameDTO);
-            fillGridCells(game.initialBoard, this.gridCells);
-
-            SudokuSolver.SolveMatrix(game.solvedBoard);
-            highscoreTimer.Start();
-            lblScore.Text = "Score: " + game.score;
-
-            btnSolve.Enabled = true;
+            createNewGame();
         }
 
         private void btnSolve_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("Solving...");
-            //SudokuSolver.Solve(gridCells);
-            for (int i = 0; i < 9; i++)
-            {
-                for (int j = 0; j < 9; j++)
-                {
-                    if (!gridCells[i,j].IsLocked)
-                    {
-                        gridCells[i, j].Value = game.solvedBoard[i, j].value;
-                        gridCells[i, j].Text = game.solvedBoard[i, j].value.ToString();
-                        gridCells[i, j].ForeColor = Color.Blue;
-                        gridCells[i, j].IsLocked = true;
-                    }
-                }
-            }
-            highscoreTimer.Stop();
-            Console.WriteLine("Solved! Thank you for trying.");
+            solveGame();
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -95,8 +52,9 @@ namespace VP_Sudoku
             openFile();
             fillGridCells(game.currentBoard, gridCells);
             lblPlayTime.Text = "Play time: " + game.playTimeToTime();
-            highscoreTimer.Start();
+            livesToolStrip.Text = "Lives left: " + game.livesLeft;
             Console.WriteLine("Opened!");
+            highscoreTimer.Start();
         }
 
         private void cell_keyPressed(object sender, KeyPressEventArgs e)
@@ -117,22 +75,11 @@ namespace VP_Sudoku
             {
                 if (value == game.solvedBoard[cell.X, cell.Y].value) //Correct
                 {
-                    cell.ForeColor = Color.Green;
-                    cell.IsLocked = true;
-                    countTracker--;
-
-                    game.currentBoard[cell.X, cell.Y].color = Color.Green;
-                    game.currentBoard[cell.X, cell.Y].isLocked = true;
-
-                    game.score += 20;
-                    lblScore.Text = "Score: " + game.score;
+                    onCorrectKey(cell);
                 }
                 else //Wrong
                 {
-                    cell.ForeColor = Color.Red;
-                    game.currentBoard[cell.X, cell.Y].color = Color.Red;
-                    game.score -= 10;
-                    lblScore.Text = "Score: " + game.score;
+                    onWrongKey(cell);
                 }
 
                 game.currentBoard[cell.X, cell.Y].value = value;
@@ -141,9 +88,12 @@ namespace VP_Sudoku
 
                 if (countTracker <= 0)
                 {
-                    highscoreTimer.Stop();
-                    FileService.writeToFile(FileService.getPathOfDifficulty(selectedDifficulty), game.score.ToString());
-                    Console.WriteLine("FINISHED");
+                    onWin();
+                }
+
+                if(game.livesLeft <= 0)
+                {
+                    onLoss();
                 }
             }
         }
@@ -251,20 +201,21 @@ namespace VP_Sudoku
             {
                 for(int j = 0; j < 9; j++)
                 {
+                    gridCells[i, j].Enabled = true;
                     GridCellDTO cell = gridCellsDTO[i, j];
                     if (cell.value != 0)
                     {
                         cell.isLocked = true;
-                        gridCells[cell.x, cell.y].Value = cell.value;
-                        gridCells[cell.x, cell.y].Text = cell.value.ToString();
-                        gridCells[cell.x, cell.y].IsLocked = cell.color != Color.Red;
-                        gridCells[cell.x, cell.y].ForeColor = cell.color;
+                        gridCells[i, j].Value = cell.value;
+                        gridCells[i, j].Text = cell.value.ToString();
+                        gridCells[i, j].IsLocked = cell.color != Color.Red;
+                        gridCells[i, j].ForeColor = cell.color;
                     }
                     else
                     {
-                        gridCells[cell.x, cell.y].Value = 0;
-                        gridCells[cell.x, cell.y].Text = "";
-                        gridCells[cell.x, cell.y].IsLocked = false;
+                        gridCells[i, j].Value = 0;
+                        gridCells[i, j].Text = "";
+                        gridCells[i, j].IsLocked = false;
                     }
                 }
             }
@@ -295,6 +246,135 @@ namespace VP_Sudoku
                 }
                 Console.Write("\n");
             }
+        }
+
+        private void createDialog(string title)
+        {
+            DialogResult result = MessageBox.Show("Do you want to play another game?", title, MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                //code for creating new game
+                createNewGame();
+            }
+            if (result == DialogResult.No)
+            {
+                //nothing?
+            }
+        }
+
+        private void formInit()
+        {
+            btnSolve.Enabled = false;
+            btnSave.Enabled = false;
+            this.gridCells = new GridCell[9, 9];
+            this.selectedDifficulty = "1";
+            difficultyComboBox.Items.Add("1");
+            difficultyComboBox.Items.Add("2");
+            difficultyComboBox.Items.Add("3");
+
+            FileService.init();
+
+            this.lblHighScore.Text = "High score on difficulty: " + FileService.getHighScoreFromDifficulty(selectedDifficulty);
+        }
+
+        private async void createNewGame()
+        {
+            btnSolve.Enabled = false;
+            btnSave.Enabled = false;
+
+            game = new Game(this.selectedDifficulty);
+            game.gameDTO = await SudokuWebClient.GetSudokuTableAsync("http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9&level=" + this.selectedDifficulty);
+            countTracker = 81 - game.gameDTO.squares.Count;
+            gridPanel.Controls.Clear();
+            livesToolStrip.Text = "Lives left: " + game.livesLeft;
+
+            createGrid();
+            initializeBoard(game.currentBoard, game.gameDTO);
+            initializeBoard(game.initialBoard, game.gameDTO);
+            initializeBoard(game.solvedBoard, game.gameDTO);
+            fillGridCells(game.initialBoard, this.gridCells);
+
+            SudokuSolver.SolveMatrix(game.solvedBoard);
+            highscoreTimer.Start();
+            lblScore.Text = "Score: " + game.score;
+
+            btnSave.Enabled = true;
+            btnSolve.Enabled = true;
+        }
+
+        private void solveGame()
+        {
+            Console.WriteLine("Solving...");
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    if (!gridCells[i, j].IsLocked)
+                    {
+                        gridCells[i, j].Value = game.solvedBoard[i, j].value;
+                        gridCells[i, j].Text = game.solvedBoard[i, j].value.ToString();
+                        gridCells[i, j].ForeColor = Color.Blue;
+                        gridCells[i, j].IsLocked = true;
+                    }
+                }
+            }
+            highscoreTimer.Stop();
+            Console.WriteLine("Solved! Thank you for trying.");
+        }
+
+        private void onCorrectKey(GridCell cell)
+        {
+            cell.ForeColor = Color.Green;
+            cell.IsLocked = true;
+            countTracker--;
+
+            game.currentBoard[cell.X, cell.Y].color = Color.Green;
+            game.currentBoard[cell.X, cell.Y].isLocked = true;
+
+            game.score += 50;
+            lblScore.Text = "Score: " + game.score;
+        }
+
+        private void onWrongKey(GridCell cell)
+        {
+            cell.ForeColor = Color.Red;
+            game.currentBoard[cell.X, cell.Y].color = Color.Red;
+            game.score -= 10;
+            lblScore.Text = "Score: " + game.score;
+            game.livesLeft -= 1;
+            livesToolStrip.Text = "Lives left: " + game.livesLeft;
+        }
+
+        private void onWin()
+        {
+            highscoreTimer.Stop();
+            FileService.writeToFile(FileService.getPathOfDifficulty(selectedDifficulty), game.score.ToString());
+            Console.WriteLine("FINISHED");
+            createDialog("You Won!");
+        }
+
+        private void onLoss()
+        {
+            //all the buttons should be disabled for playing
+            highscoreTimer.Stop();
+            Console.WriteLine("You lost");
+            livesToolStrip.Text = "Lives left: " + game.livesLeft;
+            createDialog("You Lost!");
+            clear();
+        }
+
+        private void clear()
+        {
+            for(int i = 0; i < 9; i++)
+            {
+                for(int j = 0; j < 9; j++)
+                {
+                    gridCells[i, j].Enabled = false;
+                }
+            }
+
+            btnSave.Enabled = false;
+            btnSolve.Enabled = false;
         }
         #endregion
     }
